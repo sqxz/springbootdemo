@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>常用小工具</title>
+    <script src="/js/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+    <script>
+        $(function () {
+            $("#button").click(function () {
+                if ($("#tableName").val() == '' || $("#tableDescription").val() == '' || $("#requestJson").val() == ''){
+                    alert("信息不能为空")
+                }else{
+                    $.post({
+                        url:"/tool/mysql",
+                        data:{"tableName":$("#tableName").val(),"tableDescription":$("#tableDescription").val(),"requestJson":$("#requestJson").val()},
+                        success:function (data) {
+                            let msg = JSON.parse(data);
+                            $("#createTable").val(msg.createTable);
+                            $("#insertValue").val(msg.insertValue);
+                        }
+                    })
+                }
+            })
+        });
+    </script>
+
+</head>
+<body>
+<div class="container">
+    <div style="height: 50px">
+        <div style="display: inline-block"><h3>jsonConverterToMysql</h3></div>
+        <div style="float: right;display: inline-block"><a>返回首页</a></div>
+    </div>
+    <form>
+        <div class="form-group">
+            表名：<input class="form-control" type="text" id="tableName" required>
+        </div>
+        <div class="form-group">
+            描述：<input class="form-control" type="text" id="tableDescription" required>
+        </div>
+        <div class="form-group">
+            json:<textarea class="form-control" id="requestJson" required style="height: 200px"></textarea>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-default" id="button">Submit</button>
+        </div>
+    </form>
+
+    <form>
+        <div class="form-group">
+            建表语句:<textarea class="form-control" style="height: 200px" id="createTable"></textarea>
+            insert语句:<textarea class="form-control" style="height: 200px" id="insertValue"></textarea>
+        </div>
+    </form>
+
+
+</div>
+</body>
+</html>

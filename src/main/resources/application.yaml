@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/ssmbuild?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  mvc:
+    view:
+      suffix:
+        .jsp
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
